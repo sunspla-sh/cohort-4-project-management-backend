@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const projectRouter = require('./routes/project.routes');
 const taskRouter = require('./routes/task.routes');
+const authRouter = require('./routes/auth.routes');
 
 const PORT = process.env.PORT;
 
@@ -19,6 +20,7 @@ app.use(express.json())
 
 app.use('/api', projectRouter);
 app.use('/api', taskRouter);
+app.use('/auth', authRouter);
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(x => {
