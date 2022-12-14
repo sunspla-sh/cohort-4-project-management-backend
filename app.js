@@ -4,6 +4,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
+const { isAuthenticated } = require('./middleware/jwt.middleware');
+
 const projectRouter = require('./routes/project.routes');
 const taskRouter = require('./routes/task.routes');
 const authRouter = require('./routes/auth.routes');
@@ -18,8 +20,8 @@ app.use(cors({
 
 app.use(express.json())
 
-app.use('/api', projectRouter);
-app.use('/api', taskRouter);
+app.use('/api', isAuthenticated, projectRouter);
+app.use('/api', isAuthenticated, taskRouter);
 app.use('/auth', authRouter);
 
 mongoose.connect(process.env.MONGODB_URI)
